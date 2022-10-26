@@ -4,12 +4,6 @@
 #include"list.h"
 #define MAX 2000
 
-
-//typedef struct {
-//    char data;
-//    int num;
-//}element;
-
 typedef struct {
     element heap[MAX];
     int heap_size;
@@ -33,8 +27,6 @@ void insertheap(heap* h, element *item)
         i /= 2;
     }
     h->heap[i] = *item;
-    //h->heap[i].num = item.num;
-    //h->heap[i].data = item.data;
 }
 
 inline element deletHeap(heap* h)
@@ -62,30 +54,18 @@ inline element deletHeap(heap* h)
     h->heap[parent]= temp;
     h->heap[h->heap_size+1].data = NULL;
     h->heap[h->heap_size+1].num = 0;
+    
     return item;
 }
-/*
-element deletHeap2(heap* h)
-{
-    element item, tmp;
-    int parent=1, child=2,i;
-    item = h->heap[h->heap_size];
-    h->heap[1] = item;
-    while ()
-    {
-
-    }
-
-}*/
-
 
 void printheap(heap* h)
 {
     int i;
-    printf("heap: ");
+    printf("\n heap: ");
     for (i = 1; i <= h->heap_size; i++)
     {
         printf("[%d]", h->heap[i].num);
     }
 }
+
 
