@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include<stdbool.h>
-
-
 
 typedef struct Element{
     char data;
@@ -61,21 +58,20 @@ void printList(LinkedList_h* L)
 
 }
 
-
 void insertFirstnode(LinkedList_h* L, char x)
 {
     listnode* newNode=(listnode*)malloc(sizeof(listnode));
+    newNode->node.num = 0;
     newNode->node.data = x;
+    newNode->node.left = NULL;
+    newNode->node.right = NULL;
     newNode->link = L->head;
     L->head = newNode;
-    newNode->node.num = 0;
 }
 
-
-
+/*
 void insertMiddleNode(LinkedList_h* L, listnode* pre, char x)
 {
-
     listnode* newNode=NULL;
     newNode = (listnode*)malloc(sizeof(listnode));
     newNode->node.data = x;
@@ -95,14 +91,13 @@ void insertMiddleNode(LinkedList_h* L, listnode* pre, char x)
     }
     newNode->node.num = 0;
 }
-
+*/
 
 
 void insertLastNode(LinkedList_h* L, char x)
 {
     listnode* newNode= (listnode*)malloc(sizeof(listnode));
-    listnode* temp=NULL;
-    
+    listnode* temp=NULL; 
     newNode->node.data = x;
     newNode->link = NULL;
     if (L->head == NULL)
@@ -110,7 +105,6 @@ void insertLastNode(LinkedList_h* L, char x)
         newNode->link = NULL;
         return;
     }
-
     temp = L->head;
     while (temp->link != NULL) temp = temp->link;
     temp->link = newNode;
@@ -119,7 +113,7 @@ void insertLastNode(LinkedList_h* L, char x)
     newNode->node.right = NULL;
 }
 
-
+/*
 void deletNode(LinkedList_h* L, listnode* p)
 {
     listnode* pre;
@@ -130,7 +124,6 @@ void deletNode(LinkedList_h* L, listnode* p)
         L->head = NULL;
         return;
     }
-
     else if (p == NULL) return;
     else
     {
@@ -141,9 +134,8 @@ void deletNode(LinkedList_h* L, listnode* p)
         }
         pre->link = p->link;
         free(p);
-
     }
-}
+}*/
 
 listnode* searchNode(LinkedList_h* L, char x)
 {
