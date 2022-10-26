@@ -34,7 +34,7 @@ void main()
 
     unsigned int output=0;
     int i;
-    printf("\n¾ĞÃà ¹ÙÀÌÆ® :");
+    printf("\nì••ì¶• ë°”ì´íŠ¸ :");
     for ( i = 0; i < size; i++)
     {
         decimalToBinary(&huffmanTree->heap[1], str[i], save,&output);
@@ -46,8 +46,10 @@ void main()
         else if((size-1)==i)fwrite(&output, 1, 1, save);*/
         if ((size - 1) == i)
         {
-            if (output < 0x00000010)fwrite(&output, 1, 1, save);
-            else if ((output >= 0x00000010) && (output < 0x00000100));
+            if (output < 0x00000100)fwrite(&output, 1, 1, save);
+            else if ((output >= 0x00000100) && (output < 0x00010000)) fwrite(&output,2,1,save);
+            else if ((output >= 0x00010000) && (output < 0x01000000)) fwrite(&output,3,1,save);
+            else fwrite(&output,4,1,save);
         }
     }
     printf("\n");
@@ -55,9 +57,9 @@ void main()
     fseek(save, 0, SEEK_END);
     zipfile_size = ftell(save);
 
-    printf("\n¿øº»ÆÄÀÏ »çÀÌÁî : %d byte",size);
-    printf("\n¾ĞÃàÆÄÀÏ »çÀÌÁî : %d byte", zipfile_size);
-    printf("\nÆÄÀÏ ¾ĞÃà·ü : %lf", ((double)zipfile_size / (double)size) * 100);
+    printf("\nì›ë³¸íŒŒì¼ ì‚¬ì´ì¦ˆ : %d byte",size);
+    printf("\nì••ì¶•íŒŒì¼ ì‚¬ì´ì¦ˆ : %d byte", zipfile_size);
+    printf("\níŒŒì¼ ì••ì¶•ë¥  : %lf", ((double)zipfile_size / (double)size) * 100);
 
     freeLinkedList_h(leafNode);
     free(huffmanTree);   
@@ -165,13 +167,13 @@ int encoding(element* el, char x, int* code)
 
 void decimalToBinary(element* el, char x,FILE* fp, int* tmp)
 {
-    // µ¿Àû ¹è¿­ »ı¼º 
+    // ë™ì  ë°°ì—´ ìƒì„± 
     int code=0;
     encoding(el, x, &code);
     int n=code;
     int size = 1;
     char* a = (char*)calloc(size ,sizeof(char));    
-    // ¹è¿­¿¡ ¿ø¼Ò ³Ö±â 
+    // ë°°ì—´ì— ì›ì†Œ ë„£ê¸° 
     for (int i = 0; n != 0; i++) {
         a[i] = n % 2;
         n /= 2;
@@ -181,7 +183,7 @@ void decimalToBinary(element* el, char x,FILE* fp, int* tmp)
         }
     }
 
-    // ¹è¿­ ¿ø¼Ò °Å²Ù·Î Ãâ·Â 
+    // ë°°ì—´ ì›ì†Œ ê±°ê¾¸ë¡œ ì¶œë ¥ 
     
     for (int i = size - 1; i >= 0; i--) {
         //fwrite(&a[i], 1, 1, fp);
